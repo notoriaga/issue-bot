@@ -27,6 +27,14 @@
           "action": "opened"
         }
       }
+    },
+    {
+      "github.issues": {
+        "filename": "events/github/issues/assigned.js",
+        "subtype": {
+          "action": "assigned"
+        }
+      }
     }
   ]
 }

@@ -33,10 +33,10 @@ function createIssueAttachments ({
       footer: 'Build on Standard Library',
       footer_icon: 'https://polybit-apps.s3.amazonaws.com/stdlib/users/stdlib/profile/image.png',
       ts: Math.floor(new Date().valueOf() / 1000),
-      callback_id: 'select_assignee',
+      callback_id: 'add_assignee',
       actions: [
         {
-          name: 'assignee',
+          name: `${issueId}|${repository}`,
           text: 'Who should handle this?',
           type: 'select',
           data_source: 'external',

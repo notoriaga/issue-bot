@@ -8,30 +8,32 @@ const lib = require('lib')({
 * @returns {object.http}
 */
 module.exports = async (payload, context) => {
+  let [issueId, repository] = payload.name.split('|');
+  let query = payload.value || '';
+
   let users = await lib.airtable.query['@0.2.2']
     .select({
       table: 'Users',
       where: {
-        'GitHub Username__icontains': payload.value || ''
+        'GitHub Username__icontains': query
       }
     })
     .then(results => results.rows);
 
   let options = users.map(user => {
+    let username = user.fields['GitHub Username'];
     return {
-      text: user.fields['GitHub Username'],
-      value: user.fields['GitHub Username']
+      text: username,
+      value: `${username}|${issueId}|${repository}`
     };
   });
-
-  let results = {
-    options: options
-  };
 
   return {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(results)
+    body: JSON.stringify({
+      options: options
+    })
   };
 };
