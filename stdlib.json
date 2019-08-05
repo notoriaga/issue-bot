@@ -13,6 +13,14 @@
       }
     },
     {
+      "slack.interactive_message": {
+        "filename": "events/slack/interactive_message/add_assignee.js",
+        "subtype": {
+          "callback_id": "add_assignee"
+        }
+      }
+    },
+    {
       "github.issues": {
         "filename": "events/github/issues/opened.js",
         "subtype": {

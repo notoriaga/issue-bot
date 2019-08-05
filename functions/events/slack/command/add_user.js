@@ -4,8 +4,6 @@ const lib = require('lib')({
 
 /**
 * An HTTP endpoint that acts as a webhook for Slack command event
-* This command is used to add yourself to the reviewers table.
-* It expects one argument, your github username.
 * @param {object} event Slack command event body (raw)
 * @returns {any}
 */
@@ -24,7 +22,7 @@ module.exports = async event => {
 
   let isExistingUser = await lib.airtable.query['@0.2.2']
     .count({
-      table: 'Reviewers',
+      table: 'Users',
       where: {
         'GitHub Username': githubUsername
       }
@@ -44,12 +42,12 @@ module.exports = async event => {
   let { channel } = await lib.slack.messages['@0.4.5'].create({
     id: event.user_id,
     text:
-      "Thanks for signing up to review pull requests! You'll get notified of pull requests you've been asked to review in this DM.",
+      "Thanks for signing up! You'll get notified of issues you've been assigned in this DM.",
     as_user: true
   });
 
   await lib.airtable.query['@0.2.2'].insert({
-    table: 'Reviewers',
+    table: 'Users',
     fields: {
       'GitHub Username': githubUsername,
       'Slack Id': channel

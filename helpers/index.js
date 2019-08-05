@@ -2,22 +2,22 @@ const lib = require('lib')({
   token: process.env.STDLIB_SECRET_TOKEN
 });
 
-function createReminderAttachments ({
-  pullRequestId,
-  pullRequestOpener,
-  pullRequestOpenerURL,
-  pullRequestTitle,
-  pullRequestUrl,
+function createIssueAttachments ({
+  issueId,
+  issueOpener,
+  issueOpenerURL,
+  issueTitle,
+  issueUrl,
   repository,
   repositoryURL
 }) {
   return [
     {
-      fallback: 'You have been requested to review a pull request.',
+      fallback: 'A new issue has been opened.',
       color: '#36a64f',
-      pretext: 'You have been requested to review a pull request.',
-      title: `${pullRequestTitle} #${pullRequestId}`,
-      title_link: pullRequestUrl,
+      pretext: 'A new issue has been opened.',
+      title: `${issueTitle} #${issueId}`,
+      title_link: issueUrl,
       fields: [
         {
           title: 'Repository',
@@ -26,13 +26,23 @@ function createReminderAttachments ({
         },
         {
           title: 'Opened By',
-          value: `<${pullRequestOpenerURL}|${pullRequestOpener}>`,
+          value: `<${issueOpenerURL}|${issueOpener}>`,
           short: true
         }
       ],
       footer: 'Build on Standard Library',
       footer_icon: 'https://polybit-apps.s3.amazonaws.com/stdlib/users/stdlib/profile/image.png',
-      ts: Math.floor(new Date().valueOf() / 1000)
+      ts: Math.floor(new Date().valueOf() / 1000),
+      callback_id: 'select_assignee',
+      actions: [
+        {
+          name: 'assignee',
+          text: 'Who should handle this?',
+          type: 'select',
+          data_source: 'external',
+          min_query_length: 0
+        }
+      ]
     }
   ];
 }
@@ -53,12 +63,12 @@ function joinReviewers (reviewRequests) {
   return Promise.all(requests);
 }
 
-async function getReviewRequest ({ pullRequestId, repository, githubUsername }) {
+async function getReviewRequest ({ issueId, repository, githubUsername }) {
   let reviewRequests = await lib.airtable.query['@0.2.2']
     .select({
       table: 'Review Requests',
       where: {
-        'Pull Request Id': pullRequestId,
+        'Pull Request Id': issueId,
         Repository: repository
       }
     })
@@ -72,7 +82,7 @@ async function getReviewRequest ({ pullRequestId, repository, githubUsername }) 
 }
 
 module.exports = {
-  createReminderAttachments,
+  createIssueAttachments,
   joinReviewers,
   getReviewRequest
 };
