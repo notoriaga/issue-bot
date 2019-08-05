@@ -1,0 +1,24 @@
+{
+  "name": "steve/pull-request-bot",
+  "timeout": 20000,
+  "version": "0.0.0",
+  "build": "faaslang",
+  "events": [
+    {
+      "slack.command": {
+        "filename": "events/slack/command/add_user.js",
+        "subtype": {
+          "command": "add_user"
+        }
+      }
+    },
+    {
+      "github.issues": {
+        "filename": "events/github/issues/opened.js",
+        "subtype": {
+          "action": "opened"
+        }
+      }
+    }
+  ]
+}

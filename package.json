@@ -1,0 +1,7 @@
+{
+  "name": "steve/pull-request-bot",
+  "author": "steve",
+  "dependencies": {
+    "lib": "^4.0.4"
+  }
+}
