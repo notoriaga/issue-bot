@@ -3,7 +3,7 @@ const lib = require('lib')({
 });
 
 /**
-* An HTTP endpoint that acts as a webhook for GitHub issues assigned event
+* An HTTP endpoint that acts as a webhook for GitHub issues unassigned event
 * @param {object} event
 * @returns {any}
 */
@@ -37,8 +37,7 @@ module.exports = async event => {
     throw new Error(`Could not find a record for issue ${issueId} in Airtable.`);
   }
 
-  let assignees = issue.fields.Assignees || [];
-  assignees.push(user.id);
+  let assignees = (issue.fields.Assignees || []).filter(assignee => assignee !== user.id);
 
   await lib.airtable.query['@0.2.2'].update({
     table: 'Issues',

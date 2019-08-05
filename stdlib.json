@@ -35,6 +35,14 @@
           "action": "assigned"
         }
       }
+    },
+    {
+      "github.issues": {
+        "filename": "events/github/issues/unassigned.js",
+        "subtype": {
+          "action": "unassigned"
+        }
+      }
     }
   ]
 }
