@@ -1,9 +1,7 @@
-# Pull Request Review Reminder Bot
+# GitHub Issues Bot
 
 This is a Slack + GitHub + Airtable Application, written in Node.js,
-on [Standard Library](https://stdlib.com), that helps you manage pull requests. It notifies users in slack
-when they have been requested to view a pull request. It will remind them every hour until they submit a review, the
-review request is removed, or the pull request is closed.
+on [Standard Library](https://stdlib.com), that helps you manage issues on GitHub. It sends a message to Slack when a new issue is opened on GitHub. The message will let you add/remove assignees of the issue.
 
 ## Deploying this Application
 
@@ -20,7 +18,7 @@ Before you can deploy the app, you need to link you Airtable, GitHub and Slack a
 ### Airtable
 
 Before you link your Airtable account, should need to create a base for this app. You can make one from a template
-[here](https://airtable.com/shrxszrdOd4pBsxwz). Once you create a copy of the base. Click the **Link Resource** button. Make
+[here](https://airtable.com/shrMRAXvKVb3pzaX3). Once you create a copy of the base. Click the **Link Resource** button. Make
 sure you choose the base you just created when you are linking your account.
 
 
@@ -33,12 +31,12 @@ or an organiztion that you have access to.
 
 Click **Link Resource** and follow the instructions to build and link a Slack app.
 
-**Note:** Once deployed, you will still need to create the `/add_reviewer` command separately in your Slack app dashboard.
+**Note:** Once deployed, you will still need to create the `/add_user` command separately in your Slack app dashboard.
 For the slash command's request URL, enter `https://<username>.events.stdlib.com/`.
 
-### Creating your add_reviewer Command on Slack
+### Creating your add_user Command on Slack
 
-You can create your add_reviwer command by visiting [api.slack.com/apps](https://api.slack.com/apps),
+You can create your add_user command by visiting [api.slack.com/apps](https://api.slack.com/apps),
 selecting your app, then clicking **Slash commands** on the left sidebar.
 
 ![](./readme/images/slack-create-command.png)
@@ -50,6 +48,9 @@ URL, where `<username>` is your Standard Library username.
 ![](./readme/images/slack-command-info.png)
 
 Click **Save** in the bottom right to proceed.
+
+**Note:** For your slash command to work, your bot needs to be in the channel its called from. You can invite your bot
+to a channel by typing `@<bot_name>`.
 
 That's it, you're all done! Your Slack app should be ready to go.
 
