@@ -29,7 +29,7 @@ module.exports = async event => {
     ts: issue.fields['Slack Message Timestamp']
   });
 
-  await lib.airtable.query['@0.2.2'].insert({
+  await lib.airtable.query['@0.2.2'].update({
     table: 'Issues',
     where: {
       Id: event.issue.number

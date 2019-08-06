@@ -28,7 +28,7 @@ function createIssueAttachments ({
   if (assignees && assignees.length) {
     let value = assignees
       .map(assignee => {
-        return `- <https://www.github.com/${assignee}|${assignee}>`;
+        return `- <https://www.github.com/${assignee}|${assignee}> <@UEMJU84DD>`;
       })
       .join('\n');
     fields.push({
