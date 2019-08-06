@@ -25,7 +25,7 @@ sure you choose the base you just created when you are linking your account.
 ### GitHub
 
 Click the **Link Resource** button. You'll be asked to install the **Build on Standard Library** application onto your account,
-or an organiztion that you have access to.
+or an organization that you have access to.
 
 ### Slack
 
