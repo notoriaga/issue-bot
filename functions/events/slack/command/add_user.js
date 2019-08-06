@@ -20,11 +20,11 @@ module.exports = async event => {
     return;
   }
 
+  let { id } = await lib.slack.channels['@0.4.23'].retrieve({ channel: '#issues' });
   await lib.slack.messages['@0.4.5'].ephemeral.create({
     channelId: event.channel_id,
     userId: event.user_id,
-    text:
-      "Thanks for signing up! You can now be assigned issues through Slack. They'll appear is the #issues channel.",
+    text: `Thanks for signing up! You can now be assigned issues through Slack. They'll appear in the <#${id}|issues> channel.`,
     as_user: true
   });
 
