@@ -23,8 +23,8 @@ module.exports = async event => {
     throw new Error(`Could not find a record for issue ${event.issue.number} in Airtable.`);
   }
 
-  let { id } = await lib.slack.channels.retrieve({ channel: '#issues' });
-  await lib.slack.messages.destroy({
+  let { id } = await lib.slack.channels['@0.4.23'].retrieve({ channel: '#issues' });
+  await lib.slack.messages['@0.4.6'].destroy({
     id: id,
     ts: issue.fields['Slack Message Timestamp']
   });

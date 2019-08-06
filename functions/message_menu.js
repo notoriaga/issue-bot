@@ -3,7 +3,7 @@ const lib = require('lib')({
 });
 
 /**
-* An HTTP endpoint that acts generates options for a dropdown in Slack
+* An HTTP endpoint that generates options for a dropdown in Slack
 * @param {object} payload
 * @returns {object.http}
 */

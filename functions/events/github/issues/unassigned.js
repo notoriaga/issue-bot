@@ -42,8 +42,8 @@ module.exports = async event => {
   issue.fields.Assignees = (issue.fields.Assignees || []).filter(assignee => assignee !== user.id);
   await joinAssignees(issue);
 
-  let { id } = await lib.slack.channels.retrieve({ channel: '#issues' });
-  let { ts } = await lib.slack.messages.update({
+  let { id } = await lib.slack.channels['@0.4.23'].retrieve({ channel: '#issues' });
+  let { ts } = await lib.slack.messages['@0.4.6'].update({
     id: id,
     ts: issue.fields['Slack Message Timestamp'],
     attachments: createIssueAttachments({

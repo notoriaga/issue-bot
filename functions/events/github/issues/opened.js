@@ -13,7 +13,7 @@ module.exports = async event => {
   let issue = event.issue;
   let repository = event.repository.full_name;
 
-  let { ts } = await lib.slack.channels.messages.create({
+  let { ts } = await lib.slack.channels['@0.4.23'].messages.create({
     channel: '#issues',
     attachments: createIssueAttachments({
       issueId: issue.number,
