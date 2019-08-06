@@ -54,7 +54,7 @@ module.exports = async event => {
       issueUrl: issue.fields['Repository URL'],
       repository: issue.fields.Repository,
       repositoryURL: issue.fields['Repository URL'],
-      assignees: issue.fields.Assignees.map(assignee => assignee.fields['GitHub Username'])
+      assignees: issue.fields.Assignees
     })
   });
 
