@@ -42,9 +42,9 @@ function createIssueAttachments ({
 
   return [
     {
-      fallback: 'A new issue has been opened.',
+      fallback: 'A new issue has been opened!',
       color: '#36a64f',
-      pretext: 'A new issue has been opened.',
+      pretext: 'A new issue has been opened!',
       title: `${issueTitle} #${issueId}`,
       title_link: issueUrl,
       mrkdwn_in: ['fields'],
@@ -56,7 +56,7 @@ function createIssueAttachments ({
       actions: [
         {
           name: `${issueId}|${repository}`,
-          text: 'Add/Remove Assignee',
+          text: 'Assignees',
           type: 'select',
           data_source: 'external',
           min_query_length: 0
