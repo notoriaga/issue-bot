@@ -2,6 +2,8 @@ const lib = require('lib')({
   token: process.env.STDLIB_SECRET_TOKEN
 });
 
+const { createIssueAttachments, joinAssignees } = require('../../../../helpers');
+
 /**
 * An HTTP endpoint that acts as a webhook for GitHub issues unassigned event
 * @param {object} event
@@ -37,7 +39,24 @@ module.exports = async event => {
     throw new Error(`Could not find a record for issue ${issueId} in Airtable.`);
   }
 
-  let assignees = (issue.fields.Assignees || []).filter(assignee => assignee !== user.id);
+  issue.fields.Assignees = (issue.fields.Assignees || []).filter(assignee => assignee !== user.id);
+  await joinAssignees(issue);
+
+  let { id } = await lib.slack.channels.retrieve({ channel: '#issues' });
+  let { ts } = await lib.slack.messages.update({
+    id: id,
+    ts: issue.fields['Slack Message Timestamp'],
+    attachments: createIssueAttachments({
+      issueId: issue.fields.Id,
+      issueOpener: issue.fields.Opener,
+      issueOpenerURL: issue.fields['Opener URL'],
+      issueTitle: issue.fields.Title,
+      issueUrl: issue.fields['Repository URL'],
+      repository: issue.fields.Repository,
+      repositoryURL: issue.fields['Repository URL'],
+      assignees: issue.fields.Assignees.map(assignee => assignee.fields['GitHub Username'])
+    })
+  });
 
   await lib.airtable.query['@0.2.2'].update({
     table: 'Issues',
@@ -45,7 +64,8 @@ module.exports = async event => {
       Id: issueId
     },
     fields: {
-      Assignees: assignees
+      Assignees: issue.fields.Assignees.map(assignee => assignee.id),
+      'Slack Message Timestamp': ts
     }
   });
 

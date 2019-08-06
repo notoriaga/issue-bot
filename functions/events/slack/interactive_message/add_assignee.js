@@ -10,12 +10,29 @@ const lib = require('lib')({
 module.exports = async event => {
   let [assignee, issueId, repository] = event.actions[0].selected_options[0].value.split('|');
 
-  await lib.github.issues.addAssignees({
-    owner: repository.split('/')[0],
-    repo: repository.split('/')[1],
-    issue_number: parseInt(issueId),
-    assignees: [assignee]
-  });
+  let assignees = await lib.github.issues
+    .listAssignees({
+      owner: repository.split('/')[0],
+      repo: repository.split('/')[1],
+      issue_number: parseInt(issueId)
+    })
+    .then(assignees => assignees.map(assignee => assignee.login));
+
+  if (assignees.includes(assignee)) {
+    await lib.github.issues.removeAssignees({
+      owner: repository.split('/')[0],
+      repo: repository.split('/')[1],
+      issue_number: parseInt(issueId),
+      assignees: [assignee]
+    });
+  } else {
+    await lib.github.issues.addAssignees({
+      owner: repository.split('/')[0],
+      repo: repository.split('/')[1],
+      issue_number: parseInt(issueId),
+      assignees: [assignee]
+    });
+  }
 
   return;
 };

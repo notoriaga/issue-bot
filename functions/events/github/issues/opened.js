@@ -13,16 +13,7 @@ module.exports = async event => {
   let issue = event.issue;
   let repository = event.repository.full_name;
 
-  await lib.airtable.query['@0.2.2'].insert({
-    table: 'Issues',
-    fields: {
-      Id: issue.number,
-      Opener: issue.user.login,
-      Repository: repository
-    }
-  });
-
-  await lib.slack.channels.messages.create({
+  let { ts } = await lib.slack.channels.messages.create({
     channel: '#issues',
     attachments: createIssueAttachments({
       issueId: issue.number,
@@ -33,6 +24,18 @@ module.exports = async event => {
       repository,
       repositoryURL: `https://github.com/${repository}/`
     })
+  });
+
+  await lib.airtable.query['@0.2.2'].insert({
+    table: 'Issues',
+    fields: {
+      Id: issue.number,
+      Status: 'Open',
+      Title: issue.title,
+      Opener: issue.user.login,
+      Repository: repository,
+      'Slack Message Timestamp': ts
+    }
   });
 
   return;
