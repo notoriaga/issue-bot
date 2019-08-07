@@ -52,6 +52,16 @@ Click **Save** in the bottom right to proceed.
 **Note:** For your slash command to work, your bot needs to be in the channel its called from. You can invite your bot
 to a channel by typing `@<bot_name>`.
 
+### Set your Options Load URL
+
+Next click **Interactive Components** on the left sidebar. 
+Scroll down to "Message Menus" and set the "Options Load URL" to be: 
+`https://<username>.api.stdlib.com/issue-bot@dev/message_menu/` 
+
+Where `<username>` is your Standard Library username.
+
+![](./readme/images/message-menu.png)
+
 That's it, you're all done! Your Slack app should be ready to go.
 
 # Thank You!
