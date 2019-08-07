@@ -18,7 +18,7 @@ Before you can deploy the app, you need to link you Airtable, GitHub and Slack a
 ### Airtable
 
 Before you link your Airtable account, you need to create a base for this app. You can make one from a template
-[here](https://airtable.com/shrMRAXvKVb3pzaX3). Once you create a copy of the base. Click the **Link Resource** button. Make
+[here](https://airtable.com/addBaseFromShare/shrhwTMHWsR0CwHHq). Once you create a copy of the base. Click the **Link Resource** button. Make
 sure you choose the base you just created when you are linking your account.
 
 
@@ -54,9 +54,9 @@ to a channel by typing `@<bot_name>`.
 
 ### Set your Options Load URL
 
-Next click **Interactive Components** on the left sidebar. 
-Scroll down to "Message Menus" and set the "Options Load URL" to be: 
-`https://<username>.api.stdlib.com/issue-bot@dev/message_menu/` 
+Next click **Interactive Components** on the left sidebar.
+Scroll down to "Message Menus" and set the "Options Load URL" to be:
+`https://<username>.api.stdlib.com/issue-bot@dev/message_menu/`
 
 Where `<username>` is your Standard Library username.
 
