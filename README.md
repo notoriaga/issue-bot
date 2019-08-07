@@ -17,7 +17,7 @@ Before you can deploy the app, you need to link you Airtable, GitHub and Slack a
 
 ### Airtable
 
-Before you link your Airtable account, should need to create a base for this app. You can make one from a template
+Before you link your Airtable account, you need to create a base for this app. You can make one from a template
 [here](https://airtable.com/shrMRAXvKVb3pzaX3). Once you create a copy of the base. Click the **Link Resource** button. Make
 sure you choose the base you just created when you are linking your account.
 
